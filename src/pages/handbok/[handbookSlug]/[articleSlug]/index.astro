@@ -3,7 +3,11 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import Card from "../../../../components/Card.astro";
 import HandbookNav from "../../../../components/HandbookNav.astro";
 import MainLayout from "../../../../components/MainLayout.astro";
-import { getAllHandbooks, getArticleBySlug } from "../../../../lib/data";
+import {
+  getAllHandbooks,
+  getArticleBySlug,
+  getHandbookBySlug,
+} from "../../../../lib/data";
 import { notEmpty } from "../../../../lib/notEmpty";
 import { parseJSON, format } from "date-fns";
 
@@ -20,21 +24,23 @@ export const getStaticPaths = async () => {
   );
 };
 
-const { articleSlug } = Astro.params;
+const { articleSlug, handbookSlug } = Astro.params;
 
+const handbook = await getHandbookBySlug(handbookSlug);
 const article = await getArticleBySlug(articleSlug);
 
-if (!article) {
+if (!article || !handbook) {
   return new Response(null, { status: 404 });
 }
 ---
 
 <MainLayout title={article.fields.title}>
   <div class="flex gap-8">
-    <div class="p-8 w-[20rem]">
+    <div class="p-8 w-[20rem] print:hidden">
       <HandbookNav />
     </div>
-    <Card className="p-8 w-[64rem]">
+    <Card className="p-8 w-[64rem] print:w-full">
+      <div class="mb-4 font-medium text-gray-500">{handbook.fields.name}</div>
       <h1 class="font-medium text-4xl">
         {article.fields.title}
       </h1>
