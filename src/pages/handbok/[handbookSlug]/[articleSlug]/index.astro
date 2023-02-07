@@ -1,0 +1,51 @@
+---
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import Card from "../../../../components/Card.astro";
+import HandbookNav from "../../../../components/HandbookNav.astro";
+import MainLayout from "../../../../components/MainLayout.astro";
+import { getAllHandbooks, getArticleBySlug } from "../../../../lib/data";
+import { notEmpty } from "../../../../lib/notEmpty";
+import { parseJSON, format } from "date-fns";
+
+export const getStaticPaths = async () => {
+  const handbooks = await getAllHandbooks();
+
+  return handbooks.flatMap((handbook) =>
+    handbook.fields.content.filter(notEmpty).map((article) => ({
+      params: {
+        handbookSlug: handbook.fields.slug,
+        articleSlug: article.fields.slug,
+      },
+    }))
+  );
+};
+
+const { articleSlug } = Astro.params;
+
+const article = await getArticleBySlug(articleSlug);
+
+if (!article) {
+  return new Response(null, { status: 404 });
+}
+---
+
+<MainLayout title={article.fields.title}>
+  <div class="flex gap-8">
+    <div class="p-8 w-[20rem]">
+      <HandbookNav />
+    </div>
+    <Card className="p-8 w-[64rem]">
+      <h1 class="font-medium text-4xl">
+        {article.fields.title}
+      </h1>
+      <hr class="my-8" />
+      <div class="prose max-w-none">
+        <div set:html={documentToHtmlString(article.fields.body)} />
+      </div>
+      <hr class="my-8" />
+      <div class="mt-8 text-sm text-gray-500">
+        Sist oppdatert: {format(parseJSON(article.sys.updatedAt), "dd.MM.yyyy")}
+      </div>
+    </Card>
+  </div>
+</MainLayout>

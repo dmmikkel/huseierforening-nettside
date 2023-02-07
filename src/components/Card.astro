@@ -1,0 +1,9 @@
+---
+type Props = {
+  className?: string;
+};
+---
+
+<div class:list={["bg-white shadow-md rounded-lg", Astro.props.className]}>
+  <slot />
+</div>

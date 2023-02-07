@@ -1,0 +1,37 @@
+---
+import { getAllHandbooks, getHandbookBySlug } from "../../../lib/data";
+import { notEmpty } from "../../../lib/notEmpty";
+
+const { handbookSlug } = Astro.params;
+
+export const getStaticPaths = async () => {
+  const handbooks = await getAllHandbooks();
+  return handbooks.map((item) => ({
+    params: {
+      handbookSlug: item.fields.slug,
+    },
+  }));
+};
+
+if (!handbookSlug) {
+  return new Response(null, { status: 404 });
+}
+
+const handbook = await getHandbookBySlug(handbookSlug);
+
+if (!handbook) {
+  return new Response(null, { status: 404 });
+}
+
+const redirectTo = `/handbok/${handbookSlug}/${handbook.fields.content[0]?.fields.slug}`;
+---
+
+<!DOCTYPE html>
+<html lang="nb">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content={`0; url=${redirectTo}`} />
+    <title>Hosle Huseierforening</title>
+  </head>
+  <body> </body>
+</html>

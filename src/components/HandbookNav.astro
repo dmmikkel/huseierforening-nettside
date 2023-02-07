@@ -1,0 +1,29 @@
+---
+import { getAllHandbooks, getHandbookBySlug } from "../lib/data";
+import { notEmpty } from "../lib/notEmpty";
+
+const { handbookSlug, articleSlug } = Astro.params;
+
+const handbook = await getHandbookBySlug(handbookSlug);
+
+if (!handbook) {
+  return new Response(null, { status: 404 });
+}
+---
+
+<div class="space-y-4">
+  {
+    handbook.fields.content.filter(notEmpty).map((article) => {
+      return (
+        <div class="leading-tight">
+          <a
+            href={`/handbok/${handbookSlug}/${article.fields.slug}`}
+            class={articleSlug === article.fields.slug ? "font-medium" : ""}
+          >
+            {article.fields.title}
+          </a>
+        </div>
+      );
+    })
+  }
+</div>

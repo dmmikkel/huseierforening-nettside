@@ -1,0 +1,23 @@
+---
+import Header from "./Header.astro";
+
+type Props = {
+  title?: string;
+};
+
+const { title } = Astro.props;
+---
+
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    {title && <title>{title} - Hosle Huseierforening</title>}
+    {!title && <title>Hosle Huseierforening</title>}
+  </head>
+  <body class="flex flex-col items-center bg-gray-200">
+    <Header />
+    <slot />
+  </body>
+</html>
