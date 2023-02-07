@@ -35,7 +35,7 @@ if (!article || !handbook) {
 ---
 
 <MainLayout title={article.fields.title}>
-  <div class="flex gap-8">
+  <div class="flex">
     <div class="p-8 w-[20rem] print:hidden">
       <HandbookNav />
     </div>
@@ -45,7 +45,7 @@ if (!article || !handbook) {
         {article.fields.title}
       </h1>
       <hr class="my-8" />
-      <div class="prose max-w-none">
+      <div class="prose max-w-none print:prose-sm">
         <div set:html={documentToHtmlString(article.fields.body)} />
       </div>
       <hr class="my-8" />
