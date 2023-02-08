@@ -1,5 +1,19 @@
 ---
 import MainLayout from "../components/MainLayout.astro";
+import { getLatestNewsArticles } from "../lib/data";
+
+const newsArticles = await getLatestNewsArticles();
 ---
 
-<MainLayout>Hei</MainLayout>
+<MainLayout>
+  {
+    newsArticles.map((article) => (
+      <article>
+        <a href={`/nyhet/${article.fields.slug}`}>
+          <h2>{article.fields.title}</h2>
+          <p>{article.sys.createdAt}</p>
+        </a>
+      </article>
+    ))
+  }
+</MainLayout>

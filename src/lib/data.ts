@@ -1,5 +1,5 @@
 import type { Entry, EntryCollection } from "contentful";
-import type { Article, Handbook } from "../types";
+import type { Article, Handbook, NewsArticle } from "../types";
 import { contentfulClient, ContentTypes } from "./contentful";
 
 // Caches the request to fetch all handbooks
@@ -33,6 +33,45 @@ export const getArticleBySlug = async (slug: string | undefined | null) => {
 
   const entries = await contentfulClient.getEntries<Article>({
     content_type: ContentTypes.article,
+    "fields.slug": slug,
+    include: 0,
+  });
+
+  return entries?.items[0] ?? null;
+};
+
+export const getLatestNewsArticles = async () => {
+  const entries = await contentfulClient.getEntries<
+    Pick<NewsArticle, "title" | "date" | "slug">
+  >({
+    content_type: ContentTypes.newsArticle,
+    order: "-fields.date",
+    select: "fields.title,fields.date,fields.slug",
+    include: 0,
+    limit: 10,
+  });
+
+  return entries?.items ?? [];
+};
+
+export const getAllNewsArticleSlugs = async () => {
+  const entries = await contentfulClient.getEntries<Pick<NewsArticle, "slug">>({
+    content_type: ContentTypes.newsArticle,
+    select: "fields.slug",
+    include: 0,
+    limit: 1000,
+  });
+
+  return entries?.items.map((item) => item.fields.slug) ?? [];
+};
+
+export const getNewsArticle = async (slug: string | undefined | null) => {
+  if (!slug) {
+    return null;
+  }
+
+  const entries = await contentfulClient.getEntries<NewsArticle>({
+    content_type: ContentTypes.newsArticle,
     "fields.slug": slug,
     include: 0,
   });

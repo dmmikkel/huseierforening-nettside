@@ -9,6 +9,15 @@ export type Article = {
   body: Document;
 };
 
+export type NewsArticle = {
+  title: string;
+  slug: string;
+  date: string;
+  author: string;
+  body: Document;
+  tags: string[];
+};
+
 export type Handbook = {
   name: string;
   slug: string;

@@ -11,4 +11,5 @@ export const contentfulClient = contentful.createClient({
 export const ContentTypes = {
   article: "article",
   handbook: "handbook",
+  newsArticle: "newsArticle",
 };

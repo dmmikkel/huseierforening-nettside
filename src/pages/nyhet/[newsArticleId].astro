@@ -1,0 +1,43 @@
+---
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import Card from "../../components/Card.astro";
+import MainLayout from "../../components/MainLayout.astro";
+import { getAllNewsArticleSlugs, getNewsArticle } from "../../lib/data";
+
+export const getStaticPaths = async () => {
+  const slugs = await getAllNewsArticleSlugs();
+
+  return slugs.map((slug) => ({
+    params: {
+      newsArticleId: slug,
+    },
+  }));
+};
+
+const { newsArticleId } = Astro.params;
+
+const article = await getNewsArticle(newsArticleId);
+
+if (!article) {
+  return new Response(null, { status: 404 });
+}
+---
+
+<MainLayout title={article.fields.title}>
+  <div class="flex">
+    <div class="p-8 w-[20rem] print:hidden">Sidebar</div>
+    <Card className="p-8 w-[64rem] print:w-full">
+      <h1 class="font-medium text-4xl">
+        {article.fields.title}
+      </h1>
+      <hr class="my-8" />
+      <div class="prose max-w-none print:prose-sm">
+        <div set:html={documentToHtmlString(article.fields.body)} />
+      </div>
+      <hr class="my-8" />
+      <div class="mt-8 text-sm text-gray-500">
+        <!-- Sist oppdatert: {format(parseJSON(article.sys.updatedAt), "dd.MM.yyyy")} -->
+      </div>
+    </Card>
+  </div>
+</MainLayout>
