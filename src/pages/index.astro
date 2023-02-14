@@ -1,19 +1,113 @@
 ---
+import Card from "../components/Card.astro";
 import MainLayout from "../components/MainLayout.astro";
+import NewsArticleCard from "../components/NewsArticleCard.astro";
+import SidebarLayout from "../components/SidebarLayout.astro";
 import { getLatestNewsArticles } from "../lib/data";
 
 const newsArticles = await getLatestNewsArticles();
 ---
 
 <MainLayout>
-  {
-    newsArticles.map((article) => (
-      <article>
-        <a href={`/nyhet/${article.fields.slug}`}>
-          <h2>{article.fields.title}</h2>
-          <p>{article.sys.createdAt}</p>
-        </a>
-      </article>
-    ))
-  }
+  <SidebarLayout>
+    <div>
+      <h2 class="mb-4 font-medium text-gray-700">Nyheter</h2>
+      <div class="grid gap-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]">
+        {
+          newsArticles.map((article) => (
+            <NewsArticleCard
+              title={article.fields.title}
+              image={article.fields.image}
+              date={article.fields.date}
+              slug={article.fields.slug}
+            />
+          ))
+        }
+        {
+          newsArticles.map((article) => (
+            <NewsArticleCard
+              title={article.fields.title}
+              image={article.fields.image}
+              date={article.fields.date}
+              slug={article.fields.slug}
+            />
+          ))
+        }
+        {
+          newsArticles.map((article) => (
+            <NewsArticleCard
+              title={article.fields.title}
+              image={article.fields.image}
+              date={article.fields.date}
+              slug={article.fields.slug}
+            />
+          ))
+        }
+        {
+          newsArticles.map((article) => (
+            <NewsArticleCard
+              title={article.fields.title}
+              image={article.fields.image}
+              date={article.fields.date}
+              slug={article.fields.slug}
+            />
+          ))
+        }
+      </div>
+    </div>
+    <div class="space-y-8">
+      <div>
+        <h2 class="mb-4 font-medium text-gray-500 text-sm">Viktige datoer</h2>
+        <Card className="p-8">
+          <ol class="space-y-4">
+            <li>
+              <span class="block text-sm font-medium"
+                >Lørdag, 20. mars 2023</span
+              >
+              <span class="text-gray-500 text-sm">Styremøte</span>
+            </li>
+            <li>
+              <span class="block text-sm font-medium"
+                >Lørdag, 20. mars 2023</span
+              >
+              <span class="text-gray-500 text-sm">Styremøte</span>
+            </li>
+            <li>
+              <span class="block text-sm font-medium"
+                >Lørdag, 20. mars 2023</span
+              >
+              <span class="text-gray-500 text-sm">Styremøte</span>
+            </li>
+          </ol>
+        </Card>
+      </div>
+      <div>
+        <h2 class="mb-4 font-medium text-gray-500 text-sm">
+          Nyttig informasjon
+        </h2>
+        <Card className="p-8">
+          <ol class="space-y-4">
+            <li>
+              <span class="block text-sm font-medium"
+                >Lørdag, 20. mars 2023</span
+              >
+              <span class="text-gray-500 text-sm">Styremøte</span>
+            </li>
+            <li>
+              <span class="block text-sm font-medium"
+                >Lørdag, 20. mars 2023</span
+              >
+              <span class="text-gray-500 text-sm">Styremøte</span>
+            </li>
+            <li>
+              <span class="block text-sm font-medium"
+                >Lørdag, 20. mars 2023</span
+              >
+              <span class="text-gray-500 text-sm">Styremøte</span>
+            </li>
+          </ol>
+        </Card>
+      </div>
+    </div>
+  </SidebarLayout>
 </MainLayout>

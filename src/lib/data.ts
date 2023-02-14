@@ -42,12 +42,12 @@ export const getArticleBySlug = async (slug: string | undefined | null) => {
 
 export const getLatestNewsArticles = async () => {
   const entries = await contentfulClient.getEntries<
-    Pick<NewsArticle, "title" | "date" | "slug">
+    Pick<NewsArticle, "title" | "date" | "slug" | "image">
   >({
     content_type: ContentTypes.newsArticle,
     order: "-fields.date",
-    select: "fields.title,fields.date,fields.slug",
-    include: 0,
+    select: "fields.title,fields.date,fields.slug,fields.image",
+    include: 1,
     limit: 10,
   });
 

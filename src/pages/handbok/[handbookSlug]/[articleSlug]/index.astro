@@ -10,6 +10,7 @@ import {
 } from "../../../../lib/data";
 import { notEmpty } from "../../../../lib/notEmpty";
 import { parseJSON, format } from "date-fns";
+import SidebarLayout from "../../../../components/SidebarLayout.astro";
 
 export const getStaticPaths = async () => {
   const handbooks = await getAllHandbooks();
@@ -35,11 +36,11 @@ if (!article || !handbook) {
 ---
 
 <MainLayout title={article.fields.title}>
-  <div class="flex">
-    <div class="p-8 w-[20rem] print:hidden">
+  <SidebarLayout mainSide="right">
+    <div class="print:hidden">
       <HandbookNav />
     </div>
-    <Card className="p-8 w-[64rem] print:w-full">
+    <Card className="p-8 print:w-full">
       <div class="mb-4 font-medium text-gray-500">{handbook.fields.name}</div>
       <h1 class="font-medium text-4xl">
         {article.fields.title}
@@ -53,5 +54,5 @@ if (!article || !handbook) {
         Sist oppdatert: {format(parseJSON(article.sys.updatedAt), "dd.MM.yyyy")}
       </div>
     </Card>
-  </div>
+  </SidebarLayout>
 </MainLayout>

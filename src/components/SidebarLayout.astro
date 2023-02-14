@@ -1,0 +1,17 @@
+---
+type Props = {
+  mainSide?: "left" | "right";
+};
+
+const { mainSide } = Astro.props;
+---
+
+<div
+  class={`container grid grid-cols-1 gap-8 px-4 ${
+    mainSide === "right"
+      ? "md:grid-cols-[20rem_1fr]"
+      : "md:grid-cols-[1fr_20rem]"
+  }`}
+>
+  <slot />
+</div>

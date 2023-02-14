@@ -1,0 +1,29 @@
+---
+import type { Asset } from "contentful";
+
+const generateImageUrl = (asset: Asset, width: number, ratio: number) => {
+  return `${asset.fields.file.url}?w=${width}&h=${Math.round(
+    width / ratio
+  )}&q=70&fit=fill&fm=webp`;
+};
+
+type Props = {
+  asset: Asset;
+};
+
+const { asset } = Astro.props;
+
+// const sizes = [480, 800, 1200];
+
+// const srcset = sizes
+//   .map((size) => `${generateImageUrl(asset, size, 1.5)} ${size}w`)
+//   .join(", ");
+---
+
+<div>
+  <img
+    src={generateImageUrl(asset, 480, 2)}
+    alt={asset.fields.title}
+    style="display: block; width: 100%; height: auto;"
+  />
+</div>

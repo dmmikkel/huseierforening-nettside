@@ -1,4 +1,4 @@
-import type { Entry } from "contentful";
+import type { Asset, Entry } from "contentful";
 import type { Document } from "@contentful/rich-text-types";
 
 export type RelatedEntries<T> = (Entry<T> | null)[];
@@ -16,6 +16,7 @@ export type NewsArticle = {
   author: string;
   body: Document;
   tags: string[];
+  image: Asset;
 };
 
 export type Handbook = {

@@ -1,0 +1,27 @@
+---
+import type { Asset } from "contentful";
+import { format, parse, parseISO } from "date-fns";
+import Card from "./Card.astro";
+import ContentfulImage from "./ContentfulImage.astro";
+
+type Props = {
+  title: string;
+  slug: string;
+  date: string;
+  image: Asset;
+};
+
+const { title, image, slug, date } = Astro.props;
+---
+
+<a href={`/nyhet/${slug}`} class="block w-full">
+  <Card className="overflow-hidden">
+    <ContentfulImage asset={image} />
+    <div class="p-4">
+      <h2 class="mb-4">{title}</h2>
+      <time class="block text-gray-500 text-sm" datetime={date}
+        >{format(parseISO(date), "dd.MM.yyyy")}</time
+      >
+    </div>
+  </Card>
+</a>
