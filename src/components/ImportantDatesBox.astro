@@ -1,23 +1,67 @@
 ---
-import Card from "./Card.astro";
+import LatestNewsBoxItem from "./LatestNewsBoxItem.astro";
 ---
 
-<div>
-  <h2 class="mb-4 font-medium text-gray-500 text-sm">Viktige datoer</h2>
-  <Card className="p-8">
-    <ol class="space-y-4">
-      <li>
-        <span class="block text-sm font-medium">Lørdag, 20. mars 2023</span>
-        <span class="text-gray-500 text-sm">Styremøte</span>
-      </li>
-      <li>
-        <span class="block text-sm font-medium">Lørdag, 20. mars 2023</span>
-        <span class="text-gray-500 text-sm">Styremøte</span>
-      </li>
-      <li>
-        <span class="block text-sm font-medium">Lørdag, 20. mars 2023</span>
-        <span class="text-gray-500 text-sm">Styremøte</span>
-      </li>
-    </ol>
-  </Card>
+<div class="rounded-xl border border-stone-200 px-8 py-4">
+  <h2 class="font-bold font-montserrat text-xs text-gray-500 uppercase mt-4">
+    Kalender
+  </h2>
+  <div class="divide-y">
+    <div class="flex items-start gap-4 py-4">
+      <div
+        class="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden relative bg-sky-700 text-white font-montserrat flex flex-col items-center justify-center leading-4"
+      >
+        <span>14</span>
+        <span>mar</span>
+      </div>
+      <div>
+        <h2 class="font-bold font-montserrat leading-5">Generalforsamling</h2>
+        <time class="text-gray-500 text-xs" datetime="1970-01-01"
+          >14. mar 2023</time
+        >
+      </div>
+    </div>
+    <div class="flex items-start gap-4 py-4">
+      <div
+        class="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden relative bg-sky-700 text-white font-montserrat flex flex-col items-center justify-center leading-4"
+      >
+        <span>14</span>
+        <span>mar</span>
+      </div>
+      <div>
+        <h2 class="font-bold font-montserrat leading-5">Vårdugnad</h2>
+        <time class="text-gray-500 text-xs" datetime="1970-01-01"
+          >14. mar 2023</time
+        >
+      </div>
+    </div>
+    <div class="flex items-start gap-4 py-4">
+      <div
+        class="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden relative bg-sky-700 text-white font-montserrat flex flex-col items-center justify-center leading-4"
+      >
+        <span>14</span>
+        <span>mar</span>
+      </div>
+      <div>
+        <h2 class="font-bold font-montserrat leading-5">Tunfest</h2>
+        <time class="text-gray-500 text-xs" datetime="1970-01-01"
+          >14. mar 2023</time
+        >
+      </div>
+    </div>
+    <div class="flex items-start gap-4 py-4">
+      <div
+        class="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden relative bg-sky-700 text-white font-montserrat flex flex-col items-center justify-center leading-4"
+      >
+        <span>14</span>
+        <span>mar</span>
+      </div>
+      <div>
+        <h2 class="font-bold font-montserrat leading-5">Høstdugnad</h2>
+        <time class="text-gray-500 text-xs" datetime="1970-01-01"
+          >14. mar 2023</time
+        >
+      </div>
+    </div>
+  </div>
 </div>

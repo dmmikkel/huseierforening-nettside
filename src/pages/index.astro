@@ -17,12 +17,9 @@ const article = newsArticles[0];
 
 <MainLayout>
   <div class="w-full max-w-5xl mx-auto grid grid-cols-[1fr_22rem] gap-6">
-    <a
-      href={`/nyhet/${article.fields.slug}`}
-      class="relative group rounded-xl overflow-hidden"
-    >
+    <div class="relative group rounded-xl overflow-hidden">
       <div
-        class="absolute bg-cover bg-center inset-0 group-hover:scale-[1.03] transition-transform duration-700"
+        class="absolute bg-cover bg-center inset-0"
         style={`background-image: url('${generateImageUrl(
           article.fields.image,
           800,
@@ -30,8 +27,12 @@ const article = newsArticles[0];
         )}');`}
       >
       </div>
-    </a>
+    </div>
     <LatestNewsBox />
+  </div>
+  <div class="mt-6 w-full max-w-5xl mx-auto grid grid-cols-2 gap-6 items-start">
+    <ImportantDatesBox />
+    <UsefulInfoBox />
   </div>
   <!-- <SidebarLayout>
     <NewsArticleList />

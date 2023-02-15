@@ -1,23 +1,29 @@
 ---
-import Card from "./Card.astro";
+import LatestNewsBoxItem from "./LatestNewsBoxItem.astro";
 ---
 
-<div>
-  <h2 class="mb-4 font-medium text-gray-500 text-sm">Nyttig informasjon</h2>
-  <Card className="p-8">
-    <ol class="space-y-4">
-      <li>
-        <span class="block text-sm font-medium">Lørdag, 20. mars 2023</span>
-        <span class="text-gray-500 text-sm">Styremøte</span>
-      </li>
-      <li>
-        <span class="block text-sm font-medium">Lørdag, 20. mars 2023</span>
-        <span class="text-gray-500 text-sm">Styremøte</span>
-      </li>
-      <li>
-        <span class="block text-sm font-medium">Lørdag, 20. mars 2023</span>
-        <span class="text-gray-500 text-sm">Styremøte</span>
-      </li>
-    </ol>
-  </Card>
+<div class="rounded-xl border border-stone-200 px-8 py-4">
+  <h2 class="font-bold font-montserrat text-xs text-gray-500 uppercase mt-4">
+    Nyttig informasjon
+  </h2>
+  <div class="grid grid-cols-2 my-8 gap-8">
+    <div class="col-span-2">
+      <h2 class="text-xs text-gray-500">E-post</h2>
+      <p class="font-bold">
+        <a
+          href="mailto:hosle.huseierforening@gmail.com"
+          class="hover:text-rose-600 transition-colors duration-700"
+          >hosle.huseierforening@gmail.com</a
+        >
+      </p>
+    </div>
+    <div>
+      <h2 class="text-xs text-gray-500">Felleskostnad</h2>
+      <p class="font-bold">2 190,-/mnd</p>
+    </div>
+    <div>
+      <h2 class="text-xs text-gray-500">Antall hus</h2>
+      <p class="font-bold">43</p>
+    </div>
+  </div>
 </div>
