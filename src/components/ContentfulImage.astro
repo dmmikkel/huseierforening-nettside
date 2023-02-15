@@ -1,28 +1,22 @@
 ---
 import type { Asset } from "contentful";
 
-const generateImageUrl = (asset: Asset, width: number, ratio: number) => {
-  return `${asset.fields.file.url}?w=${width}&h=${Math.round(
-    width / ratio
-  )}&q=70&fit=fill&fm=webp`;
-};
-
 type Props = {
   asset: Asset;
+  width: number;
+  aspectRatio: [number, number];
 };
 
-const { asset } = Astro.props;
+const { asset, width, aspectRatio } = Astro.props;
 
-// const sizes = [480, 800, 1200];
-
-// const srcset = sizes
-//   .map((size) => `${generateImageUrl(asset, size, 1.5)} ${size}w`)
-//   .join(", ");
+const ratio = aspectRatio[0] / aspectRatio[1];
 ---
 
-<div>
+<div class={`w-full aspect-[${aspectRatio[0]}/${aspectRatio[1]}]`}>
   <img
-    src={generateImageUrl(asset, 480, 2)}
+    src={`${asset.fields.file.url}?w=${width}&h=${Math.round(
+      width / ratio
+    )}&q=70&fit=fill&fm=webp`}
     alt={asset.fields.title}
     style="display: block; width: 100%; height: auto;"
   />

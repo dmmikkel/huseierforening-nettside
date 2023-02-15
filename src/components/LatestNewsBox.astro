@@ -1,0 +1,17 @@
+---
+import { getLatestNewsArticles } from "../lib/data";
+import { generateImageUrl } from "../lib/images";
+import LatestNewsBoxItem from "./LatestNewsBoxItem.astro";
+---
+
+<div class="rounded-xl border border-stone-200 px-8 py-4">
+  <h2 class="font-bold font-montserrat text-xs text-gray-500 uppercase mt-4">
+    Siste nytt
+  </h2>
+  <div class="divide-y">
+    <LatestNewsBoxItem />
+    <LatestNewsBoxItem />
+    <LatestNewsBoxItem />
+    <LatestNewsBoxItem />
+  </div>
+</div>

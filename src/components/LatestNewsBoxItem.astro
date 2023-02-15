@@ -1,0 +1,28 @@
+---
+import { getLatestNewsArticles } from "../lib/data";
+import { generateImageUrl } from "../lib/images";
+
+const newsArticles = await getLatestNewsArticles();
+
+const article = newsArticles[0];
+---
+
+<a href="#" class="group flex items-start gap-4 py-4">
+  <div class="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden relative mt-1">
+    <img
+      src={generateImageUrl(article.fields.image, 128, 1)}
+      alt={article.fields.image.fields.title}
+      class="w-16 h-16 group-hover:scale-105 transition-transform duration-700"
+    />
+  </div>
+  <div>
+    <h2
+      class="font-bold font-montserrat group-hover:text-rose-600 transition-colors duration-700 leading-5"
+    >
+      Styret informerer - desember 2022
+    </h2>
+    <time class="text-gray-500 text-xs" datetime="1970-01-01"
+      >1. januar 1970</time
+    >
+  </div>
+</a>

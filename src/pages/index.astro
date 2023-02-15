@@ -1,113 +1,43 @@
 ---
+import { format, parseISO } from "date-fns";
 import Card from "../components/Card.astro";
+import ImportantDatesBox from "../components/ImportantDatesBox.astro";
+import LatestNewsBox from "../components/LatestNewsBox.astro";
 import MainLayout from "../components/MainLayout.astro";
-import NewsArticleCard from "../components/NewsArticleCard.astro";
+import NewsArticleList from "../components/NewsArticleList.astro";
 import SidebarLayout from "../components/SidebarLayout.astro";
+import UsefulInfoBox from "../components/UsefulInfoBox.astro";
 import { getLatestNewsArticles } from "../lib/data";
+import { generateImageUrl } from "../lib/images";
 
 const newsArticles = await getLatestNewsArticles();
+
+const article = newsArticles[0];
 ---
 
 <MainLayout>
-  <SidebarLayout>
-    <div>
-      <h2 class="mb-4 font-medium text-gray-700">Nyheter</h2>
-      <div class="grid gap-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]">
-        {
-          newsArticles.map((article) => (
-            <NewsArticleCard
-              title={article.fields.title}
-              image={article.fields.image}
-              date={article.fields.date}
-              slug={article.fields.slug}
-            />
-          ))
-        }
-        {
-          newsArticles.map((article) => (
-            <NewsArticleCard
-              title={article.fields.title}
-              image={article.fields.image}
-              date={article.fields.date}
-              slug={article.fields.slug}
-            />
-          ))
-        }
-        {
-          newsArticles.map((article) => (
-            <NewsArticleCard
-              title={article.fields.title}
-              image={article.fields.image}
-              date={article.fields.date}
-              slug={article.fields.slug}
-            />
-          ))
-        }
-        {
-          newsArticles.map((article) => (
-            <NewsArticleCard
-              title={article.fields.title}
-              image={article.fields.image}
-              date={article.fields.date}
-              slug={article.fields.slug}
-            />
-          ))
-        }
+  <div class="w-full max-w-5xl mx-auto grid grid-cols-[1fr_22rem] gap-6">
+    <a
+      href={`/nyhet/${article.fields.slug}`}
+      class="relative group rounded-xl overflow-hidden"
+    >
+      <div
+        class="absolute bg-cover bg-center inset-0 group-hover:scale-[1.03] transition-transform duration-700"
+        style={`background-image: url('${generateImageUrl(
+          article.fields.image,
+          800,
+          1
+        )}');`}
+      >
       </div>
-    </div>
+    </a>
+    <LatestNewsBox />
+  </div>
+  <!-- <SidebarLayout>
+    <NewsArticleList />
     <div class="space-y-8">
-      <div>
-        <h2 class="mb-4 font-medium text-gray-500 text-sm">Viktige datoer</h2>
-        <Card className="p-8">
-          <ol class="space-y-4">
-            <li>
-              <span class="block text-sm font-medium"
-                >Lørdag, 20. mars 2023</span
-              >
-              <span class="text-gray-500 text-sm">Styremøte</span>
-            </li>
-            <li>
-              <span class="block text-sm font-medium"
-                >Lørdag, 20. mars 2023</span
-              >
-              <span class="text-gray-500 text-sm">Styremøte</span>
-            </li>
-            <li>
-              <span class="block text-sm font-medium"
-                >Lørdag, 20. mars 2023</span
-              >
-              <span class="text-gray-500 text-sm">Styremøte</span>
-            </li>
-          </ol>
-        </Card>
-      </div>
-      <div>
-        <h2 class="mb-4 font-medium text-gray-500 text-sm">
-          Nyttig informasjon
-        </h2>
-        <Card className="p-8">
-          <ol class="space-y-4">
-            <li>
-              <span class="block text-sm font-medium"
-                >Lørdag, 20. mars 2023</span
-              >
-              <span class="text-gray-500 text-sm">Styremøte</span>
-            </li>
-            <li>
-              <span class="block text-sm font-medium"
-                >Lørdag, 20. mars 2023</span
-              >
-              <span class="text-gray-500 text-sm">Styremøte</span>
-            </li>
-            <li>
-              <span class="block text-sm font-medium"
-                >Lørdag, 20. mars 2023</span
-              >
-              <span class="text-gray-500 text-sm">Styremøte</span>
-            </li>
-          </ol>
-        </Card>
-      </div>
+      <ImportantDatesBox />
+      <UsefulInfoBox />
     </div>
-  </SidebarLayout>
+  </SidebarLayout> -->
 </MainLayout>

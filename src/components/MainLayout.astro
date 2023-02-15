@@ -16,8 +16,14 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     {title && <title>{title} - Hosle Huseierforening</title>}
     {!title && <title>Hosle Huseierforening</title>}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body class="flex flex-col items-center bg-gray-200">
+  <body class="bg-white">
     <Header />
     <slot />
   </body>
