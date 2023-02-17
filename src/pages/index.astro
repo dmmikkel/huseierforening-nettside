@@ -1,18 +1,12 @@
 ---
-import { format, parseISO } from "date-fns";
-import Card from "../components/Card.astro";
 import ImportantDatesBox from "../components/ImportantDatesBox.astro";
 import LatestNewsBox from "../components/LatestNewsBox.astro";
 import MainLayout from "../components/MainLayout.astro";
-import NewsArticleList from "../components/NewsArticleList.astro";
-import SidebarLayout from "../components/SidebarLayout.astro";
 import UsefulInfoBox from "../components/UsefulInfoBox.astro";
-import { getLatestNewsArticles } from "../lib/data";
+import { getFrontpage } from "../lib/data";
 import { generateImageUrl } from "../lib/images";
 
-const newsArticles = await getLatestNewsArticles();
-
-const article = newsArticles[0];
+const frontpage = await getFrontpage();
 ---
 
 <MainLayout>
@@ -21,7 +15,7 @@ const article = newsArticles[0];
       <div
         class="absolute bg-cover bg-center inset-0"
         style={`background-image: url('${generateImageUrl(
-          article.fields.image,
+          frontpage.mainImage,
           800,
           1
         )}');`}
@@ -34,11 +28,4 @@ const article = newsArticles[0];
     <ImportantDatesBox />
     <UsefulInfoBox />
   </div>
-  <!-- <SidebarLayout>
-    <NewsArticleList />
-    <div class="space-y-8">
-      <ImportantDatesBox />
-      <UsefulInfoBox />
-    </div>
-  </SidebarLayout> -->
 </MainLayout>

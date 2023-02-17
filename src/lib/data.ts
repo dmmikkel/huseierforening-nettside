@@ -1,5 +1,11 @@
 import type { Entry, EntryCollection } from "contentful";
-import type { Article, Handbook, NewsArticle } from "../types";
+import type {
+  Article,
+  CalendarEvent,
+  Frontpage,
+  Handbook,
+  NewsArticle,
+} from "../types";
 import { contentfulClient, ContentTypes } from "./contentful";
 
 // Caches the request to fetch all handbooks
@@ -77,4 +83,30 @@ export const getNewsArticle = async (slug: string | undefined | null) => {
   });
 
   return entries?.items[0] ?? null;
+};
+
+export const getAllCalendarEvents = async () => {
+  const entries = await contentfulClient.getEntries<CalendarEvent>({
+    content_type: ContentTypes.calendarEvent,
+    select: "fields",
+    include: 0,
+    limit: 1000,
+    order: "fields.date",
+  });
+
+  return entries?.items ?? [];
+};
+
+export const getFrontpage = async () => {
+  const entry = await contentfulClient.getEntry<Frontpage>(
+    "5iXtENCpDgzFSzHL13H0LN"
+  );
+
+  const frontpage = entry?.fields ?? null;
+
+  if (!frontpage) {
+    throw new Error("Could not fetch frontpage");
+  }
+
+  return frontpage;
 };

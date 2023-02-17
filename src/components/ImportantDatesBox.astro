@@ -1,5 +1,24 @@
 ---
-import LatestNewsBoxItem from "./LatestNewsBoxItem.astro";
+import { format, parseISO } from "date-fns";
+import { getAllCalendarEvents } from "../lib/data";
+import nb from "date-fns/locale/nb";
+
+const events = await getAllCalendarEvents();
+
+const months = [
+  "jan",
+  "feb",
+  "mar",
+  "apr",
+  "mai",
+  "jun",
+  "jul",
+  "aug",
+  "sep",
+  "okt",
+  "nov",
+  "des",
+];
 ---
 
 <div class="rounded-xl border border-stone-200 px-8 py-4">
@@ -7,61 +26,29 @@ import LatestNewsBoxItem from "./LatestNewsBoxItem.astro";
     Kalender
   </h2>
   <div class="divide-y">
-    <div class="flex items-start gap-4 py-4">
-      <div
-        class="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden relative bg-sky-700 text-white font-montserrat flex flex-col items-center justify-center leading-4"
-      >
-        <span>14</span>
-        <span>mar</span>
-      </div>
-      <div>
-        <h2 class="font-bold font-montserrat leading-5">Generalforsamling</h2>
-        <time class="text-gray-500 text-xs" datetime="1970-01-01"
-          >14. mar 2023</time
-        >
-      </div>
-    </div>
-    <div class="flex items-start gap-4 py-4">
-      <div
-        class="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden relative bg-sky-700 text-white font-montserrat flex flex-col items-center justify-center leading-4"
-      >
-        <span>14</span>
-        <span>jul</span>
-      </div>
-      <div>
-        <h2 class="font-bold font-montserrat leading-5">Vårdugnad</h2>
-        <time class="text-gray-500 text-xs" datetime="1970-01-01"
-          >14. mar 2023</time
-        >
-      </div>
-    </div>
-    <div class="flex items-start gap-4 py-4">
-      <div
-        class="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden relative bg-sky-700 text-white font-montserrat flex flex-col items-center justify-center leading-4"
-      >
-        <span>14</span>
-        <span>mar</span>
-      </div>
-      <div>
-        <h2 class="font-bold font-montserrat leading-5">Tunfest</h2>
-        <time class="text-gray-500 text-xs" datetime="1970-01-01"
-          >14. mar 2023</time
-        >
-      </div>
-    </div>
-    <div class="flex items-start gap-4 py-4">
-      <div
-        class="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden relative bg-sky-700 text-white font-montserrat flex flex-col items-center justify-center leading-4"
-      >
-        <span>14</span>
-        <span>des</span>
-      </div>
-      <div>
-        <h2 class="font-bold font-montserrat leading-5">Høstdugnad</h2>
-        <time class="text-gray-500 text-xs" datetime="1970-01-01"
-          >14. mar 2023</time
-        >
-      </div>
-    </div>
+    {
+      events.map((event) => {
+        const date = parseISO(event.fields.date);
+        return (
+          <div class="flex items-start gap-4 py-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden relative bg-sky-700 text-white font-montserrat flex flex-col items-center justify-center leading-4">
+              <span>{format(date, "d", { locale: nb })}</span>
+              <span>{months[date.getMonth()]}</span>
+            </div>
+            <div>
+              <h2 class="font-bold font-montserrat leading-5">
+                {event.fields.title}
+              </h2>
+              {event.fields.description && (
+                <p class="text-sm text-gray-500">{event.fields.description}</p>
+              )}
+              <time class="text-gray-500 text-xs" datetime={event.fields.date}>
+                {format(date, "d. MMMM yyyy", { locale: nb })}
+              </time>
+            </div>
+          </div>
+        );
+      })
+    }
   </div>
 </div>

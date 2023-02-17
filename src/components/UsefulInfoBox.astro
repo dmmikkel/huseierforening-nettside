@@ -1,5 +1,8 @@
 ---
+import { getFrontpage } from "../lib/data";
 import LatestNewsBoxItem from "./LatestNewsBoxItem.astro";
+
+const frontpage = await getFrontpage();
 ---
 
 <div class="rounded-xl border border-stone-200 px-8 py-4">
@@ -11,9 +14,9 @@ import LatestNewsBoxItem from "./LatestNewsBoxItem.astro";
       <h2 class="text-xs text-gray-500">E-post</h2>
       <p class="font-bold">
         <a
-          href="mailto:hosle.huseierforening@gmail.com"
+          href={`mailto:${frontpage.email}`}
           class="hover:text-rose-600 transition-colors duration-700"
-          >hosle.huseierforening@gmail.com</a
+          >{frontpage.email}</a
         >
       </p>
     </div>
@@ -21,10 +24,10 @@ import LatestNewsBoxItem from "./LatestNewsBoxItem.astro";
       <h2 class="text-xs text-gray-500">Facebook-gruppe</h2>
       <p class="font-bold">
         <a
-          href="https://www.facebook.com/groups/196648104164297"
+          href={frontpage.fbGroup}
           target="_blank"
           class="hover:text-rose-600 transition-colors duration-700"
-          >facebook.com/groups/196648104164297</a
+          >{frontpage.fbGroup.replace("https://www.facebook", "fb")}</a
         >
       </p>
     </div>

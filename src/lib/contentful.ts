@@ -12,4 +12,5 @@ export const ContentTypes = {
   article: "article",
   handbook: "handbook",
   newsArticle: "newsArticle",
+  calendarEvent: "calendarEvent",
 };

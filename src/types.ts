@@ -24,3 +24,15 @@ export type Handbook = {
   slug: string;
   content: RelatedEntries<Article>;
 };
+
+export type CalendarEvent = {
+  title: string;
+  date: string;
+  description?: string;
+};
+
+export type Frontpage = {
+  mainImage: Asset;
+  fbGroup: string;
+  email: string;
+};
