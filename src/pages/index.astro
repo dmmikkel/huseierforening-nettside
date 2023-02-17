@@ -1,4 +1,5 @@
 ---
+import Container from "../components/Container.astro";
 import ImportantDatesBox from "../components/ImportantDatesBox.astro";
 import LatestNewsBox from "../components/LatestNewsBox.astro";
 import MainLayout from "../components/MainLayout.astro";
@@ -10,22 +11,24 @@ const frontpage = await getFrontpage();
 ---
 
 <MainLayout>
-  <div class="w-full max-w-5xl mx-auto grid grid-cols-[1fr_22rem] gap-6">
-    <div class="relative group rounded-xl overflow-hidden">
-      <div
-        class="absolute bg-cover bg-center inset-0"
-        style={`background-image: url('${generateImageUrl(
-          frontpage.mainImage,
-          800,
-          1
-        )}');`}
-      >
+  <Container>
+    <div class="grid grid-cols-[1fr_22rem] gap-6 mb-6">
+      <div class="relative group rounded-xl overflow-hidden">
+        <div
+          class="absolute bg-cover bg-center inset-0"
+          style={`background-image: url('${generateImageUrl(
+            frontpage.mainImage,
+            800,
+            1
+          )}');`}
+        >
+        </div>
       </div>
+      <LatestNewsBox />
     </div>
-    <LatestNewsBox />
-  </div>
-  <div class="mt-6 w-full max-w-5xl mx-auto grid grid-cols-2 gap-6 items-start">
-    <ImportantDatesBox />
-    <UsefulInfoBox />
-  </div>
+    <div class="grid grid-cols-2 gap-6 items-start">
+      <ImportantDatesBox />
+      <UsefulInfoBox />
+    </div>
+  </Container>
 </MainLayout>

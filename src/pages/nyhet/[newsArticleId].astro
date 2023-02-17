@@ -1,6 +1,8 @@
 ---
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import Card from "../../components/Card.astro";
+import Container from "../../components/Container.astro";
+import ContentfulImage from "../../components/ContentfulImage.astro";
 import MainLayout from "../../components/MainLayout.astro";
 import { getAllNewsArticleSlugs, getNewsArticle } from "../../lib/data";
 
@@ -24,20 +26,28 @@ if (!article) {
 ---
 
 <MainLayout title={article.fields.title}>
-  <div class="flex">
-    <div class="p-8 w-[20rem] print:hidden">Sidebar</div>
-    <Card className="p-8 w-[64rem] print:w-full">
-      <h1 class="font-medium text-4xl">
-        {article.fields.title}
-      </h1>
-      <hr class="my-8" />
-      <div class="prose max-w-none print:prose-sm">
-        <div set:html={documentToHtmlString(article.fields.body)} />
+  <Container>
+    <div class="flex gap-6">
+      <div class="border border-gray-200 rounded-xl p-8 w-full print:w-full">
+        <div class="rounded-xl overflow-hidden">
+          <ContentfulImage
+            asset={article.fields.image}
+            width={1200}
+            aspectRatio={[2, 1]}
+          />
+        </div>
+        <h1 class="font-medium text-5xl my-12">
+          {article.fields.title}
+        </h1>
+        <hr class="my-8" />
+        <div class="prose lg:prose-xl max-w-none print:prose-sm">
+          <div set:html={documentToHtmlString(article.fields.body)} />
+        </div>
+        <hr class="my-8" />
+        <div class="mt-8 text-sm text-gray-500">
+          <!-- Sist oppdatert: {format(parseJSON(article.sys.updatedAt), "dd.MM.yyyy")} -->
+        </div>
       </div>
-      <hr class="my-8" />
-      <div class="mt-8 text-sm text-gray-500">
-        <!-- Sist oppdatert: {format(parseJSON(article.sys.updatedAt), "dd.MM.yyyy")} -->
-      </div>
-    </Card>
-  </div>
+    </div>
+  </Container>
 </MainLayout>

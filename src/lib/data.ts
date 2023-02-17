@@ -79,7 +79,7 @@ export const getNewsArticle = async (slug: string | undefined | null) => {
   const entries = await contentfulClient.getEntries<NewsArticle>({
     content_type: ContentTypes.newsArticle,
     "fields.slug": slug,
-    include: 0,
+    include: 1,
   });
 
   return entries?.items[0] ?? null;
