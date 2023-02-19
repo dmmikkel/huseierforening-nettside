@@ -2,6 +2,11 @@
 import { getLatestNewsArticles } from "../lib/data";
 import LatestNewsBoxItem from "./LatestNewsBoxItem.astro";
 
+type Props = {
+  count: number;
+  currentId?: string;
+};
+
 const articles = await getLatestNewsArticles();
 ---
 
@@ -10,6 +15,15 @@ const articles = await getLatestNewsArticles();
     Siste nytt
   </h2>
   <div class="divide-y">
-    {articles.map((article) => <LatestNewsBoxItem {...article.fields} />)}
+    {
+      articles
+        .slice(0, Astro.props.count)
+        .map((article) => (
+          <LatestNewsBoxItem
+            isActive={Astro.props.currentId === article.sys.id}
+            {...article.fields}
+          />
+        ))
+    }
   </div>
 </div>

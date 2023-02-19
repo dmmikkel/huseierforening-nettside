@@ -1,8 +1,9 @@
 ---
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-import Card from "../../components/Card.astro";
+import { format, parseISO } from "date-fns";
 import Container from "../../components/Container.astro";
 import ContentfulImage from "../../components/ContentfulImage.astro";
+import LatestNewsBox from "../../components/LatestNewsBox.astro";
 import MainLayout from "../../components/MainLayout.astro";
 import { getAllNewsArticleSlugs, getNewsArticle } from "../../lib/data";
 
@@ -27,20 +28,24 @@ if (!article) {
 
 <MainLayout title={article.fields.title}>
   <Container>
-    <div class="flex gap-6">
-      <div class="border border-gray-200 rounded-xl p-8 w-full print:w-full">
-        <div class="rounded-xl overflow-hidden">
+    <div class="w-full grid grid-cols-[1fr_22rem] gap-6 items-start">
+      <div class="w-full">
+        <div class="rounded-xl overflow-hidden -m-[1px]">
           <ContentfulImage
             asset={article.fields.image}
             width={1200}
             aspectRatio={[2, 1]}
           />
         </div>
-        <h1 class="font-medium text-5xl my-12">
+
+        <h1 class="font-medium text-4xl mt-12 mb-4">
           {article.fields.title}
         </h1>
-        <hr class="my-8" />
-        <div class="prose lg:prose-xl max-w-none print:prose-sm">
+        <hr class="mb-2" />
+        <div class="text-gray-500 mb-16">
+          {format(parseISO(article.fields.date), "dd.MM.yyyy")}
+        </div>
+        <div class="prose max-w-none print:prose-sm">
           <div set:html={documentToHtmlString(article.fields.body)} />
         </div>
         <hr class="my-8" />
@@ -48,6 +53,7 @@ if (!article) {
           <!-- Sist oppdatert: {format(parseJSON(article.sys.updatedAt), "dd.MM.yyyy")} -->
         </div>
       </div>
+      <LatestNewsBox count={10} currentId={article.sys.id} />
     </div>
   </Container>
 </MainLayout>

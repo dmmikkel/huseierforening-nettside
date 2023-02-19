@@ -11,6 +11,7 @@ import {
 import { notEmpty } from "../../../../lib/notEmpty";
 import { parseJSON, format } from "date-fns";
 import SidebarLayout from "../../../../components/SidebarLayout.astro";
+import Container from "../../../../components/Container.astro";
 
 export const getStaticPaths = async () => {
   const handbooks = await getAllHandbooks();
@@ -36,23 +37,31 @@ if (!article || !handbook) {
 ---
 
 <MainLayout title={article.fields.title}>
-  <SidebarLayout mainSide="right">
-    <div class="print:hidden">
-      <HandbookNav />
+  <Container>
+    <div class="w-full grid grid-cols-[1fr_22rem] gap-6 items-start">
+      <div>
+        <h1 class="font-medium text-4xl">
+          {article.fields.title}
+        </h1>
+        <hr class="my-8" />
+        <div class="prose max-w-none print:prose-sm">
+          <div set:html={documentToHtmlString(article.fields.body)} />
+        </div>
+        <hr class="my-8" />
+        <div class="mt-8 text-sm text-gray-500">
+          Sist oppdatert: {
+            format(parseJSON(article.sys.updatedAt), "dd.MM.yyyy")
+          }
+        </div>
+      </div>
+      <div class="rounded-xl border border-stone-200 px-8 py-4">
+        <h2
+          class="font-bold font-montserrat text-xs text-gray-500 uppercase mt-4 mb-8"
+        >
+          {handbook.fields.name}
+        </h2>
+        <HandbookNav />
+      </div>
     </div>
-    <Card className="p-8 print:w-full">
-      <div class="mb-4 font-medium text-gray-500">{handbook.fields.name}</div>
-      <h1 class="font-medium text-4xl">
-        {article.fields.title}
-      </h1>
-      <hr class="my-8" />
-      <div class="prose max-w-none print:prose-sm">
-        <div set:html={documentToHtmlString(article.fields.body)} />
-      </div>
-      <hr class="my-8" />
-      <div class="mt-8 text-sm text-gray-500">
-        Sist oppdatert: {format(parseJSON(article.sys.updatedAt), "dd.MM.yyyy")}
-      </div>
-    </Card>
-  </SidebarLayout>
+  </Container>
 </MainLayout>

@@ -1,5 +1,5 @@
 ---
-import { getAllHandbooks, getHandbookBySlug } from "../lib/data";
+import { getHandbookBySlug } from "../lib/data";
 import { notEmpty } from "../lib/notEmpty";
 
 const { handbookSlug, articleSlug } = Astro.params;
@@ -11,14 +11,14 @@ if (!handbook) {
 }
 ---
 
-<div class="space-y-4">
+<div class="space-y-4 my-4">
   {
     handbook.fields.content.filter(notEmpty).map((article) => {
       return (
         <div class="leading-tight">
           <a
             href={`/handbok/${handbookSlug}/${article.fields.slug}`}
-            class={articleSlug === article.fields.slug ? "font-medium" : ""}
+            class={articleSlug === article.fields.slug ? "font-bold" : ""}
           >
             {article.fields.title}
           </a>

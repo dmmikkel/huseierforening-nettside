@@ -9,9 +9,10 @@ type Props = {
   title: string;
   date: string;
   slug: string;
+  isActive?: boolean;
 };
 
-const { image, title, date, slug } = Astro.props;
+const { image, title, date, slug, isActive } = Astro.props;
 ---
 
 <a href={`/nyhet/${slug}`} class="group flex items-start gap-4 py-4">
@@ -24,7 +25,9 @@ const { image, title, date, slug } = Astro.props;
   </div>
   <div>
     <h2
-      class="font-bold font-montserrat group-hover:text-rose-600 transition-colors duration-700 leading-5"
+      class={`font-bold font-montserrat group-hover:text-rose-600 transition-colors duration-700 leading-5 ${
+        isActive && "text-rose-600"
+      }`}
     >
       {title}
     </h2>
