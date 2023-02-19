@@ -1,7 +1,7 @@
 ---
 import { format, parseISO } from "date-fns";
 import { getAllCalendarEvents } from "../lib/data";
-import nb from "date-fns/locale/nb";
+import nb from "date-fns/locale/nb/index.js";
 
 const events = await getAllCalendarEvents();
 
