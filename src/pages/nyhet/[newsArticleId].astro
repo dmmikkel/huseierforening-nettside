@@ -6,6 +6,7 @@ import ContentfulImage from "../../components/ContentfulImage.astro";
 import LatestNewsBox from "../../components/LatestNewsBox.astro";
 import MainLayout from "../../components/MainLayout.astro";
 import { getAllNewsArticleSlugs, getNewsArticle } from "../../lib/data";
+import nb from "date-fns/locale/nb/index.js";
 
 export const getStaticPaths = async () => {
   const slugs = await getAllNewsArticleSlugs();
@@ -43,7 +44,11 @@ if (!article) {
         </h1>
         <hr class="mb-2" />
         <div class="text-gray-500 mb-16">
-          {format(parseISO(article.fields.date), "dd.MM.yyyy")}
+          {
+            format(parseISO(article.fields.date), "d. MMMM yyyy", {
+              locale: nb,
+            })
+          }
         </div>
         <div class="prose max-w-none print:prose-sm">
           <div set:html={documentToHtmlString(article.fields.body)} />
