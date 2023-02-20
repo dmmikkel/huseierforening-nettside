@@ -29,7 +29,9 @@ if (!article) {
 
 <MainLayout title={article.fields.title}>
   <Container>
-    <div class="w-full grid grid-cols-[1fr_22rem] gap-6 items-start">
+    <div
+      class="grid grid-cols-1 lg:grid-cols-[1fr_22rem] gap-6 items-start mx-2"
+    >
       <div class="w-full">
         <div class="rounded-xl overflow-hidden -m-[1px]">
           <ContentfulImage
@@ -39,7 +41,7 @@ if (!article) {
           />
         </div>
 
-        <h1 class="font-medium text-4xl mt-12 mb-4">
+        <h1 class="font-medium text-2xl md:text-4xl mt-12 mb-4">
           {article.fields.title}
         </h1>
         <hr class="mb-2" />
@@ -50,7 +52,7 @@ if (!article) {
             })
           }
         </div>
-        <div class="prose max-w-none print:prose-sm">
+        <div class="prose max-sm:prose-sm max-w-none print:prose-sm">
           <div set:html={documentToHtmlString(article.fields.body)} />
         </div>
         <hr class="my-8" />

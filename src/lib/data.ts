@@ -8,19 +8,14 @@ import type {
 } from "../types";
 import { contentfulClient, ContentTypes } from "./contentful";
 
-// Caches the request to fetch all handbooks
-// This only works because we know the site is statically built
-let allHandbooksPromise: Promise<EntryCollection<Handbook>> | null = null;
-
 export const getAllHandbooks = async (): Promise<Entry<Handbook>[]> => {
-  if (!allHandbooksPromise) {
-    allHandbooksPromise = contentfulClient.getEntries<Handbook>({
+  return (
+    await contentfulClient.getEntries<Handbook>({
       content_type: ContentTypes.handbook,
       include: 1,
       limit: 5,
-    });
-  }
-  return (await allHandbooksPromise).items;
+    })
+  ).items;
 };
 
 export const getHandbookBySlug = async (slug: string | undefined | null) => {

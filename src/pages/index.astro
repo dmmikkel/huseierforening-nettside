@@ -12,7 +12,7 @@ const frontpage = await getFrontpage();
 
 <MainLayout>
   <Container>
-    <div class="grid grid-cols-[1fr_22rem] gap-6 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-[1fr_22rem] gap-6 mb-6 mx-2">
       <div class="relative group rounded-xl overflow-hidden min-h-[384px]">
         <div
           class="absolute bg-cover bg-center inset-0"
@@ -26,7 +26,7 @@ const frontpage = await getFrontpage();
       </div>
       <LatestNewsBox count={4} />
     </div>
-    <div class="grid grid-cols-2 gap-6 items-start">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start mx-2">
       <ImportantDatesBox />
       <UsefulInfoBox />
     </div>
