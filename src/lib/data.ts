@@ -12,7 +12,7 @@ export const getAllHandbooks = async (): Promise<Entry<Handbook>[]> => {
   return (
     await contentfulClient.getEntries<Handbook>({
       content_type: ContentTypes.handbook,
-      include: 2,
+      include: 1,
       limit: 5,
     })
   ).items;
@@ -35,7 +35,7 @@ export const getArticleBySlug = async (slug: string | undefined | null) => {
   const entries = await contentfulClient.getEntries<Article>({
     content_type: ContentTypes.article,
     "fields.slug": slug,
-    include: 0,
+    include: 1,
   });
 
   return entries?.items[0] ?? null;
