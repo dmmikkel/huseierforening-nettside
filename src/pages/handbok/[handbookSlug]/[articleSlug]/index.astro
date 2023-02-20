@@ -46,7 +46,31 @@ if (!article || !handbook) {
         </h1>
         <hr class="my-8" />
         <div class="prose max-sm:prose-sm max-w-none print:prose-sm">
-          <div set:html={documentToHtmlString(article.fields.body)} />
+          <div
+            set:html={documentToHtmlString(article.fields.body, {
+              renderNode: {
+                "embedded-asset-block": (node) => {
+                  const { title, file } = node.data.target.fields;
+                  const mimeType = file.contentType;
+                  const mimeGroup = mimeType.split("/")[0];
+
+                  if (mimeGroup === "image") {
+                    return `
+                    <img
+                      style="display: block; width: 100%; height: auto;"
+                      src="${file.url}?w=1200&fm=webp"
+                      alt="${title}"
+                    />
+                  `;
+                  }
+
+                  return `
+                  <a href="${file.url}">Last ned ${title} (${mimeType})</a>
+                `;
+                },
+              },
+            })}
+          />
         </div>
         <hr class="my-8" />
         <div class="mt-8 text-sm text-gray-500">
