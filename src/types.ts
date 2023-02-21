@@ -35,4 +35,6 @@ export type Frontpage = {
   mainImage: Asset;
   fbGroup: string;
   email: string;
+  pickupDateRest: string;
+  pickupDatePaper: string;
 };

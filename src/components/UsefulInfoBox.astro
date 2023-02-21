@@ -1,6 +1,6 @@
 ---
 import { getFrontpage } from "../lib/data";
-import LatestNewsBoxItem from "./LatestNewsBoxItem.astro";
+import { toShortDateWithWeekday } from "../lib/dates";
 
 const frontpage = await getFrontpage();
 ---
@@ -38,6 +38,18 @@ const frontpage = await getFrontpage();
     <div>
       <h2 class="text-xs text-gray-500">Antall hus</h2>
       <p class="font-bold">43</p>
+    </div>
+    <div>
+      <h2 class="text-xs text-gray-500">Restavfall (tømming)</h2>
+      <p class="font-bold">
+        {toShortDateWithWeekday(frontpage.pickupDateRest)}
+      </p>
+    </div>
+    <div>
+      <h2 class="text-xs text-gray-500">Papir og papp (tømming)</h2>
+      <p class="font-bold">
+        {toShortDateWithWeekday(frontpage.pickupDatePaper)}
+      </p>
     </div>
   </div>
 </div>

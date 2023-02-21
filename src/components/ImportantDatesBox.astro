@@ -2,6 +2,7 @@
 import { format, parseISO } from "date-fns";
 import { getAllCalendarEvents } from "../lib/data";
 import nb from "date-fns/locale/nb/index.js";
+import { toLongDate } from "../lib/dates";
 
 const events = await getAllCalendarEvents();
 
@@ -43,7 +44,7 @@ const months = [
                 <p class="text-sm text-gray-500">{event.fields.description}</p>
               )}
               <time class="text-gray-500 text-xs" datetime={event.fields.date}>
-                {format(date, "d. MMMM yyyy", { locale: nb })}
+                {toLongDate(event.fields.date)}
               </time>
             </div>
           </div>
